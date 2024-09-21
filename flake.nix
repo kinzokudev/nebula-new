@@ -19,9 +19,9 @@
     ...
   }: {
     # Replace "HOSTNAMEGOESHERE with your hostname.
-    # You can make it whatever you want if you are planning to install nixos using a configuration
+    # You can make it whatever you want if you are planning to install nixos using your configuration
     # you write before installation. Otherwise, use your already existing hostname.
-    nixosConfigurations."HOSTNAMEGOESHERE" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.HOSTNAMEGOESHERE = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
