@@ -8,7 +8,7 @@ This template is not the EXACT same as my configuration for accessibility reason
 
 What this template provides is a general structre to get you started on configuring NixOS with flakes. 
 
-in the `docs/` folder, you can find guides on the following:
+in the `docs/` folder, you can find guides on the following (not in any particular order):
 
 - 1. How to migrate your existing NixOS setup without flakes, to this template. (Or how to generate a configuration, if you are doing this in the installer. Preferably, dont do that though. [You might run into this issue.](https://github.com/NixOS/nixpkgs/issues/85148))
 - 2. What to edit and change during the migration.
