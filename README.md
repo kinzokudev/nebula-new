@@ -14,3 +14,7 @@ in the `docs/` folder, you can find guides on the following (not in any particul
 - 2. What to edit and change during the migration.
 - 3. The various ways you can organize this configuration after the setup.
 - 4. Centralization (If this repo ever becomes popular, that is.)
+
+# Clarifications
+
+- This repo is currently WIP. Structure is complete, but docs are lacking. Feel free to open issues or PRs If you think something is missing. Don't be shy, I don't bite :)
