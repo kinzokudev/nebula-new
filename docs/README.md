@@ -1,5 +1,3 @@
-# Cool title
-
 Hello, welcome to the first page of the docs!
 
 Now, as of writing, there aren't all that many pages (or so I assume it will be the case when pushing these changes.)

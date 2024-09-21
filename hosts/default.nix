@@ -1,5 +1,5 @@
 {
   imports = [
-    ./ShadowMoses
+    ./myAwesomeHost
   ];
 }
