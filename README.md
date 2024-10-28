@@ -1,6 +1,6 @@
 # What is this?
 
-Hello and welcome to SMPL's page, SMPL is a NixOS configuration template deriving from my own personal configuration, which aims to be as organized as possible while not forcing users to abstract everything from the get-go.
+SMPL is a NixOS configuration template deriving from my own personal configuration, which aims to be as organized as possible while not forcing users to abstract everything from the get-go.
 
 This template is not the EXACT same as my configuration for accessibility reasons, but it is derived from it.
 
