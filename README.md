@@ -15,6 +15,8 @@ in the `docs/` folder, you can find guides on the following (not in any particul
 - 3. The various ways you can organize this configuration after the setup.
 - 4. Centralization (If this repo ever becomes popular, that is.)
 
+If you're looking for the setup guide, it's [here](https://github.com/ardishko/SMPL/blob/master/docs/Setup.md)
+
 # Clarifications
 
 - This project is open to suggestions. Feel free to open issues or PRs If you think something is missing. Don't be shy, I don't bite :)
