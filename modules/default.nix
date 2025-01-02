@@ -10,7 +10,7 @@
     useUserPackages = true;
     users = {
       # Import your home-manager configuration
-      vaporsnake = import ./home-manager;
+      YOURUSERNAMEGOESHERE = import ./home-manager;
     };
   };
 }
