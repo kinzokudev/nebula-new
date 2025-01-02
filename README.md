@@ -17,4 +17,8 @@ in the `docs/` folder, you can find guides on the following (not in any particul
 
 # Clarifications
 
-- This repo is currently WIP. Structure is complete, but docs are lacking. Feel free to open issues or PRs If you think something is missing. Don't be shy, I don't bite :)
+- This project is open to suggestions. Feel free to open issues or PRs If you think something is missing. Don't be shy, I don't bite :)
+
+- DO NOT EDIT FILES WITH SUDO ONCE YOU HAVE SET THIS UP, THEY WILL BE READ ONLY AND IT CAN PRODUCE UNEXPECTED RESULTS, DON'T OPEN ISSUES ABOUT THIS!
+
+- If it says "`/nix/store/lkjsxjnsjdkgljkasjg-somestupidhashhere/somefile.nix` not found" then you can either run `git add .` or you can just delete the `.git` folder with (assuming you're inside the directory where you put your config) `rm -r .git`. I recommend the latter if you don't know what you're doing with `git`.
