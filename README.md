@@ -14,6 +14,8 @@ in the `docs/` folder, you can find guides on the following (not in any particul
 - 2. What to edit and change during the migration.
 - 3. The various ways you can organize this configuration after the setup.
 - 4. Centralization (If this repo ever becomes popular, that is.)
+- 5. A stress-free [home-manager](https://github.com/nix-community/home-manager) setup.
+- 6. The passing of inputs and other necessary attributes to the relevant files.
 
 If you're looking for the setup guide, it's [here](https://github.com/ardishko/SMPL/blob/master/docs/Setup.md)
 
