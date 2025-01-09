@@ -1,12 +1,12 @@
 # What is this?
 
-SMPL is a NixOS configuration template deriving from my own personal configuration, which aims to be as organized as possible while not forcing users to abstract everything from the get-go.
+SMPL (pronounced **S**i**MPL**e) is a NixOS configuration template deriving from own personal configuration, which aims to be as organized as possible while not forcing users to abstract everything from the get-go.
 
-This template is not the EXACT same as my configuration for accessibility reasons, but it is derived from it.
+This template is not the EXACT same as my configuration for accessibility reasons.
 
 # What do I provide?
 
-What this template provides is a general structre to get you started on configuring NixOS with flakes. 
+What this template provides is a general structure to get you started on configuring NixOS with flakes. 
 
 in the `docs/` folder, you can find guides on the following (not in any particular order):
 
