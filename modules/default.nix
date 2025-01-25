@@ -5,7 +5,8 @@
   hostname,
   isServer,
   ...
-}: {
+}:
+{
   imports = [
     ./core
     inputs.home-manager.nixosModules.home-manager

@@ -6,7 +6,7 @@ This template is not the EXACT same as my configuration for accessibility reason
 
 # What do I provide?
 
-What this template provides is a general structure to get you started on configuring NixOS with flakes. 
+What this template provides is a general structure to get you started on configuring NixOS with flakes.
 
 in the `docs/` folder, you can find guides on the following (not in any particular order):
 

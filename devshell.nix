@@ -8,7 +8,8 @@ inputs.devenv.lib.mkShell {
 
   modules = [
     (
-      {pkgs, ...}: {
+      { pkgs, ... }:
+      {
         packages = with pkgs; [
           age
           sops

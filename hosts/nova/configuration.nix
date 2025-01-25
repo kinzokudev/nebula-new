@@ -8,7 +8,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   networking = {
     hostId = "619b589f";
     hosts = {
@@ -16,8 +17,8 @@
         "localhost"
         "nova"
       ];
-      "127.0.0.1" = ["localhost"];
-      "127.0.0.2" = ["nova"];
+      "127.0.0.1" = [ "localhost" ];
+      "127.0.0.2" = [ "nova" ];
     };
     interfaces."eno1" = {
       useDHCP = false;
@@ -46,11 +47,11 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common.default = "*";
   };
 
-  user.extraGroups = ["dialout"];
+  user.extraGroups = [ "dialout" ];
   services = {
     # Configure keymap in X11
     xserver = {
