@@ -120,11 +120,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     devenv.url = "github:cachix/devenv";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     home-manager,
+    systems,
+    treefmt-nix,
     ...
   }: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -141,6 +146,10 @@
         bluesky = "kinzokudev";
       };
     };
+
+    eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+
+    treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
 
     mkHost = {
       system,
@@ -170,6 +179,12 @@
         config.allowUnfree = true;
       };
     };
+
+    formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+    checks = eachSystem (pkgs: {
+      formatting = treefmtEval.${pkgs.system}.config.build.check self;
+    });
 
     nixosConfigurations = {
       nova = mkHost {
