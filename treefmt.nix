@@ -4,5 +4,6 @@
 
   programs = {
     nixfmt.enable = true;
+    mdformat.enable = true;
   };
 }
