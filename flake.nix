@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    systems.url = "github:nix-systems/default-linux";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -124,94 +125,98 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      home-manager,
-      systems,
-      treefmt-nix,
-      ...
-    }:
-    let
-      lib = nixpkgs.lib // home-manager.lib;
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    systems,
+    treefmt-nix,
+    ...
+  }: let
+    inherit (self) outputs;
+    libPre = nixpkgs.lib // home-manager.lib;
+    lib = import ./lib {inherit libPre inputs;};
 
-      userinfo = {
-        name = "kinzoku";
-        email = "kinzoku@the-nebula.xyz";
-        altemail = "kinzokudev4869@gmail.com";
-        handles = {
-          github = "kinzokudev";
-          discord = "kinzokudev";
-          reddit = "kinzokudev";
-          twitter = "kinzokudev";
-          bluesky = "kinzokudev";
-        };
-      };
-
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-
-      mkHost =
-        {
-          system,
-          hostname,
-          isServer,
-        }:
-        (lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              hostname
-              isServer
-              userinfo
-              ;
-          };
-          modules = [
-            ./hosts/${builtins.toLower hostname}
-            ./modules
-            home-manager.nixosModules.home-manager
-          ];
-        });
-    in
-    {
-      devShells."x86_64-linux".default = import ./devshell.nix {
-        inherit inputs;
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-      };
-
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
-      });
-
-      nixosConfigurations = {
-        nova = mkHost {
-          system = "x86_64-linux";
-          hostname = "NOVA";
-          isServer = false;
-        };
-        tempest = mkHost {
-          system = "x86_64-linux";
-          hostname = "TEMPEST";
-          isServer = false;
-        };
-        satellite = mkHost {
-          system = "x86_64-linux";
-          hostname = "SATELLITE";
-          isServer = false;
-        };
-        andromeda = mkHost {
-          system = "x86_64-linux";
-          hostname = "ANDROMEDA";
-          isServer = true;
-        };
+    userinfo = {
+      name = "kinzoku";
+      email = "kinzoku@the-nebula.xyz";
+      altemail = "kinzokudev4869@gmail.com";
+      timezone = "America/New_York";
+      handles = {
+        github = "kinzokudev";
+        discord = "kinzokudev";
+        reddit = "kinzokudev";
+        twitter = "kinzokudev";
+        bluesky = "kinzokudev";
       };
     };
+
+    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs (import systems) (
+      system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+    );
+
+    treefmtEval = forEachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+
+    mkHost = {
+      system,
+      hostname,
+      isServer,
+    }: (lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inherit
+          inputs
+          hostname
+          isServer
+          userinfo
+          ;
+      };
+      modules = [
+        ./hosts/${builtins.toLower hostname}
+        ./modules
+        home-manager.nixosModules.home-manager
+      ];
+    });
+  in {
+    devShells = forEachSystem (pkgs: {
+      default = import ./devshell.nix {
+        inherit inputs pkgs;
+      };
+    });
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs inputs lib;});
+
+    formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+    checks = forEachSystem (pkgs: {
+      formatting = treefmtEval.${pkgs.system}.config.build.check self;
+    });
+
+    nixosConfigurations = {
+      nova = mkHost {
+        system = "x86_64-linux";
+        hostname = "NOVA";
+        isServer = false;
+      };
+      tempest = mkHost {
+        system = "x86_64-linux";
+        hostname = "TEMPEST";
+        isServer = false;
+      };
+      satellite = mkHost {
+        system = "x86_64-linux";
+        hostname = "SATELLITE";
+        isServer = false;
+      };
+      andromeda = mkHost {
+        system = "x86_64-linux";
+        hostname = "ANDROMEDA";
+        isServer = true;
+      };
+    };
+  };
 }
